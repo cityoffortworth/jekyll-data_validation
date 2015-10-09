@@ -12,19 +12,7 @@ module Jekyll
       @site.process
     end
 
-    def schema
-      {
-        # 'required' => ['permalink'],
-        'properties' => {
-          'unc' => {
-            # 'type' => 'string',
-            'format' => 'date-time'
-          }
-        }
-      }
-    end
-
-    def validate_posts
+    def validate_posts(schema)
       @site.posts.each do |post|
         begin
           JSON::Validator.validate!(schema, post.data)
@@ -35,7 +23,7 @@ module Jekyll
       end
     end
 
-    def validate_pages
+    def validate_pages(schema)
       @site.pages.each do |page|
         begin
           JSON::Validator.validate!(schema, page.data)

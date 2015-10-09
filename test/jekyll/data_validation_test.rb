@@ -13,7 +13,19 @@ describe Jekyll::DataValidation do
   it 'it works' do
     data_validation = Jekyll::DataValidation.new(jekyll_config)
     data_validation.process_site
-    data_validation.validate_posts
-    data_validation.validate_pages
+    data_validation.validate_posts(schema)
+    data_validation.validate_pages(schema)
+  end
+
+  def schema
+    {
+      # 'required' => ['permalink'],
+      'properties' => {
+        'unc' => {
+          # 'type' => 'string',
+          'format' => 'date-time'
+        }
+      }
+    }
   end
 end
