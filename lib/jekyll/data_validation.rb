@@ -24,6 +24,17 @@ module Jekyll
       }
     end
 
+    def validate_posts
+      @site.posts.each do |post|
+        begin
+          JSON::Validator.validate!(schema, post.data)
+        rescue JSON::Schema::ValidationError => e
+          puts "Jekyll post: #{post.path} failed validation."
+          puts "Error: #{e.message}"
+        end
+      end
+    end
+
     def validate_pages
       @site.pages.each do |page|
         begin

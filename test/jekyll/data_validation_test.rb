@@ -13,6 +13,7 @@ describe Jekyll::DataValidation do
   it 'it works' do
     data_validation = Jekyll::DataValidation.new(jekyll_config)
     data_validation.process_site
+    data_validation.validate_posts
     data_validation.validate_pages
   end
 end
