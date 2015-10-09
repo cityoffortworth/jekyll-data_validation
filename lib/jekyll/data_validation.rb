@@ -12,8 +12,8 @@ module Jekyll
       @site.process
     end
 
-    def validate_pages
-      schema = {
+    def schema
+      {
         # 'required' => ['permalink'],
         'properties' => {
           'unc' => {
@@ -22,13 +22,14 @@ module Jekyll
           }
         }
       }
+    end
 
+    def validate_pages
       @site.pages.each do |page|
-        data = page.data
         begin
-          JSON::Validator.validate!(schema, data)
+          JSON::Validator.validate!(schema, page.data)
         rescue JSON::Schema::ValidationError => e
-          puts "File: #{page.path} failed validation."
+          puts "Jekyll page: #{page.path} failed validation."
           puts "Error: #{e.message}"
         end
       end
