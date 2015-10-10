@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.version       = '0.0.1'
   spec.authors       = ['Greg Scott']
   spec.email         = ['me@gregoryjscott.com']
-  spec.summary       = %q{Uses JSON Schema to validate data in Jekyll pages, posts, and data.}
+  spec.summary       = %q{Uses JSON Schema to validate data in Jekyll posts and pages.}
   spec.homepage      = 'https://github.com/cityoffortworth/jekyll-data_validation'
   spec.license       = 'MIT'
 
