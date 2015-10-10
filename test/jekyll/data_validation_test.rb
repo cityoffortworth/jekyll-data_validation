@@ -12,27 +12,14 @@ describe Jekyll::DataValidation do
 
   it 'posts works' do
     validator = Jekyll::DataValidation::Validator.new(config)
-    validator.process_site
-    errors = validator.validate_posts(schema)
+    errors = validator.validate_posts
     assert_equal 1, errors.length
   end
 
   it 'pages works' do
     validator = Jekyll::DataValidation::Validator.new(config)
-    validator.process_site
-    errors = validator.validate_pages(schema)
+    errors = validator.validate_pages
     assert_equal 1, errors.length
   end
 
-  def schema
-    {
-      # 'required' => ['permalink'],
-      'properties' => {
-        'unc' => {
-          # 'type' => 'string',
-          'format' => 'date-time'
-        }
-      }
-    }
-  end
 end

@@ -7,27 +7,25 @@ module Jekyll
 
       def initialize(config)
         @site = Jekyll::Site.new(config)
-      end
-
-      def process_site
         @site.process
-        @site
+        @schema = @site.config['data_validation']
+        raise "Config file is missing data_validation section." if @schema.nil?
       end
 
-      def validate_posts(schema)
-        validate_data(@site.posts, schema)
+      def validate_posts
+        validate_data(@site.posts)
       end
 
-      def validate_pages(schema)
-        validate_data(@site.pages, schema)
+      def validate_pages
+        validate_data(@site.pages)
       end
 
       private
 
-      def validate_data(documents, schema)
+      def validate_data(documents)
         errors = []
         documents.each do |document|
-          messages = JSON::Validator.fully_validate(schema, document.data)
+          messages = JSON::Validator.fully_validate(@schema, document.data)
           unless messages.empty?
             errors << {
               :file => document.path,

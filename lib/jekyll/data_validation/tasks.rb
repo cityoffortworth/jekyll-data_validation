@@ -14,9 +14,7 @@ module Jekyll
               'quiet' => true
             })
             validator = Jekyll::DataValidation::Validator.new(config)
-            site = validator.process_site
-            schema = site.config['data_validation']
-            errors = validator.validate_posts(schema)
+            errors = validator.validate_posts
 
             unless errors.empty?
               errors.each do |error|
