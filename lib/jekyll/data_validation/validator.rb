@@ -12,12 +12,11 @@ module Jekyll
         raise "Config file is missing data_validation section." if @schema.nil?
       end
 
-      def validate_posts
-        validate_data(@site.posts)
-      end
-
-      def validate_pages
-        validate_data(@site.pages)
+      def validate
+        errors = []
+        errors.concat(validate_data(@site.posts))
+        errors.concat(validate_data(@site.pages))
+        errors
       end
 
       private

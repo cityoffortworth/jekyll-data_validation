@@ -10,16 +10,10 @@ describe Jekyll::DataValidation do
     })
   end
 
-  it 'posts works' do
+  it 'validation works' do
     validator = Jekyll::DataValidation::Validator.new(config)
-    errors = validator.validate_posts
-    assert_equal 1, errors.length
-  end
-
-  it 'pages works' do
-    validator = Jekyll::DataValidation::Validator.new(config)
-    errors = validator.validate_pages
-    assert_equal 1, errors.length
+    errors = validator.validate
+    assert_equal 2, errors.length
   end
 
 end
