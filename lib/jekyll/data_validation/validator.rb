@@ -34,6 +34,7 @@ module Jekyll
         end
         errors
       end
+
     end
   end
 end

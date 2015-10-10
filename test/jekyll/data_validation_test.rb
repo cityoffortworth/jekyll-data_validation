@@ -3,6 +3,7 @@ require 'jekyll/data_validation'
 require 'minitest/autorun'
 
 describe Jekyll::DataValidation do
+
   let(:config) do
     Jekyll.configuration({
       'config'=> 'test/fixtures/_config.yml',

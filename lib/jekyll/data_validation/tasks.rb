@@ -5,6 +5,7 @@ module Jekyll
     class Tasks
 
       include Rake::DSL if defined? Rake::DSL
+
       def install
         desc 'Validate Jekyll page data'
         task :validate, [:config] do |t, args|
