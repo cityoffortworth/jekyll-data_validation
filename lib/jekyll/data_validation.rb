@@ -4,34 +4,44 @@ require 'json-schema'
 module Jekyll
   class DataValidation
 
-    def initialize(jekyll_config)
+    def process_site(jekyll_config)
       @site = Jekyll::Site.new(jekyll_config)
-    end
-
-    def process_site
       @site.process
     end
 
     def validate_posts(schema)
-      @site.posts.each do |post|
-        begin
-          JSON::Validator.validate!(schema, post.data)
-        rescue JSON::Schema::ValidationError => e
-          puts "Jekyll post: #{post.path} failed validation."
-          puts "Error: #{e.message}"
+      validate_data(@site.posts, schema)
+    end
+
+    def validate_pages(schema)
+      validate_data(@site.pages, schema)
+    end
+
+    include Rake::DSL if defined? Rake::DSL
+    def install_tasks
+      namespace :validate do
+        desc 'Validate Jekyll page data'
+        task :pages, [:schema] do |t, args|
         end
       end
     end
 
-    def validate_pages(schema)
-      @site.pages.each do |page|
-        begin
-          JSON::Validator.validate!(schema, page.data)
-        rescue JSON::Schema::ValidationError => e
-          puts "Jekyll page: #{page.path} failed validation."
-          puts "Error: #{e.message}"
+    private
+
+    def validate_data(documents, schema)
+      errors = []
+      documents.each do |document|
+        doc_errors = JSON::Validator.fully_validate(schema, document.data)
+        unless doc_errors.empty?
+          errors << {
+            :file => document.path,
+            :errors => doc_errors
+          }
         end
       end
+      errors
     end
   end
 end
+
+Jekyll::DataValidation.new.install_tasks

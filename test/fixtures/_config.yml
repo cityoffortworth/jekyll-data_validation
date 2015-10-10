@@ -1,1 +1,2 @@
-custom-stuff: true
+source: test/fixtures
+custom_stuff: hello
