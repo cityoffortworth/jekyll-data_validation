@@ -1,2 +1,5 @@
 source: test/fixtures
-custom_stuff: hello
+data_validation:
+  properties:
+    unc:
+      format: date-time
