@@ -6,8 +6,11 @@ module Jekyll
     class Validator
 
       def initialize(config)
+        Jekyll::PluginManager.require_from_bundler
         @site = Jekyll::Site.new(config)
-        @site.process
+        @site.reset
+        @site.read
+        @site.generate
         @schema = @site.config['data_validation']
         raise "Config file is missing data_validation section." if @schema.nil?
       end
