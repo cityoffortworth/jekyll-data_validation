@@ -22,12 +22,13 @@ module Jekyll
       def abort_if_errors(errors)
         unless errors.empty?
           errors.each do |error|
-            puts "File: #{error[:file]} failed validation."
+            puts "#{error[:file]} failed validation."
             error[:messages].each do |message|
               puts "  #{message}"
             end
           end
-          abort 'Validation failed.'
+          puts
+          abort "#{errors.length} files failed validation. See the list above for the files that have data that needs to be corrected."
         end
       end
 
