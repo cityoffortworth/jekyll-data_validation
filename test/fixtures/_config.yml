@@ -1,5 +1,21 @@
 source: test/fixtures
 data_validation:
+  id: test
+  $schema: http://json-schema.org/draft-04/schema#
   properties:
-    unc:
-      format: date-time
+    date1:
+      format: short-date-time
+    date2:
+      format: short-date-time
+    date3:
+      format: short-date-time
+    date4:
+      format: short-date-time
+    date5:
+      format: short-date-time
+    date6:
+      format: short-date-time
+    date7:
+      format: short-date-time
+    date8:
+      format: short-date-time

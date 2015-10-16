@@ -13,6 +13,20 @@ module Jekyll
         @site.generate
         @schema = @site.config['data_validation']
         raise "Config file is missing data_validation section." if @schema.nil?
+
+        JSON::Validator.register_format_validator(
+          'short-date-time',
+          method(:short_date_time)
+        )
+      end
+
+      def short_date_time(value)
+        message = 'must have format "YYYY-MM-DD HH:MM"'
+        raise JSON::Schema::CustomFormatError.new(message) unless value.is_a? String
+        short_date_time = Time.parse(value)
+      rescue ArgumentError
+        message = 'is not a valid date. Use format "YYYY-MM-DD HH:MM"'
+        raise JSON::Schema::CustomFormatError.new(message)
       end
 
       def validate
