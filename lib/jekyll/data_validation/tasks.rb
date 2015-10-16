@@ -21,6 +21,7 @@ module Jekyll
 
       def abort_if_errors(errors)
         unless errors.empty?
+          errors.sort! { |x,y| x[:file] <=> y[:file] }
           errors_count = 0
           errors.each do |error|
             errors_count += 1
