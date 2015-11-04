@@ -7,4 +7,6 @@ short_time_bad_hours: "99:00"
 short_date_time_bad_month: "2005-99-23 14:00"
 short_date_time_bad_hours: "2005-01-23 99:00"
 short_date_no_quotes: 2005-01-23
+short_time_no_quotes: 14:00
+short_date_time_no_quotes: 2005-01-23 14:00
 ---

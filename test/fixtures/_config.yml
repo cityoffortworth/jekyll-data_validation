@@ -19,3 +19,7 @@ data_validation:
       format: short-date-time
     short_date_no_quotes:
       format: short-date-time
+    short_time_no_quotes:
+      format: short-date-time
+    short_date_time_no_quotes:
+      format: short-date-time
