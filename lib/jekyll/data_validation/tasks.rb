@@ -27,12 +27,17 @@ module Jekyll
             errors_count += 1
             puts "#{errors_count}. #{error[:file]} failed validation."
             error[:messages].each do |message|
-              puts "  #{message}"
+              trimmed_message = trim_message(message)
+              puts "  #{trimmed_message}"
             end
             puts
           end
           abort "Validation failed. See the list above for files that need to be corrected."
         end
+      end
+
+      def trim_message(message)
+        message.sub(/in schema .*/, '')
       end
 
     end

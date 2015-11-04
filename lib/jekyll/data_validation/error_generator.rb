@@ -12,19 +12,19 @@ module Jekyll
       end
 
       def verify_is_string(value, required_format)
-        message = "is missing quotes. Use format #{required_format}"
+        message = "with value #{value} is missing quotes. Use format #{required_format}."
         create_error(message) unless value.is_a? String
       end
 
       def verify_can_be_parsed(value, required_format)
         parsed_value = Time.parse(value)
       rescue ArgumentError
-        message = "cannot be parsed. Use format #{required_format}"
+        message = "with value #{value} cannot be parsed. Use format #{required_format}."
         create_error(message)
       end
 
       def verify_format(value, required_format, regex)
-        message = "has the wrong format. Use format #{required_format}"
+        message = "with value #{value} has the wrong format. Use format #{required_format}."
         create_error(message) if value.match(regex).nil?
       end
 
