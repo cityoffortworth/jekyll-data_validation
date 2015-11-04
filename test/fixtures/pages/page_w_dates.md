@@ -1,10 +1,10 @@
 ---
-date1: "2005-01-23"
-date2: "14:00"
-date3: "2005-01-23 14:00"
-date4: "2005-99-23"
-date5: "99:00"
-date6: "2005-99-23 14:00"
-date7: "2005-01-23 99:00"
-date8: 2005-01-23
+short_date: "2005-01-23"
+short_time: "14:00"
+short_date_time: "2005-01-23 14:00"
+short_date_bad_month: "2005-99-23"
+short_time_bad_hours: "99:00"
+short_date_time_bad_month: "2005-99-23 14:00"
+short_date_time_bad_hours: "2005-01-23 99:00"
+short_date_no_quotes: 2005-01-23
 ---
