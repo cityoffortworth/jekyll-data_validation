@@ -20,15 +20,6 @@ module Jekyll
         )
       end
 
-      def short_date_time(value)
-        message = 'must have format "YYYY-MM-DD HH:MM"'
-        raise JSON::Schema::CustomFormatError.new(message) unless value.is_a? String
-        short_date_time = Time.parse(value)
-      rescue ArgumentError
-        message = 'is not a valid date. Use format "YYYY-MM-DD HH:MM"'
-        raise JSON::Schema::CustomFormatError.new(message)
-      end
-
       def validate
         errors = []
         errors.concat(validate_data(@site.posts))
@@ -37,6 +28,28 @@ module Jekyll
       end
 
       private
+
+      def short_date_time(value)
+        required_format = '"YYYY-MM-DD HH:MM"'
+        verify_is_string(value, required_format)
+        verify_can_be_parsed(value, required_format)
+      end
+
+      def verify_is_string(value, required_format)
+        message = "is missing quotes. Use format #{required_format}"
+        create_error(message) unless value.is_a? String
+      end
+
+      def verify_can_be_parsed(value, required_format)
+        parsed_value = Time.parse(value)
+      rescue ArgumentError
+        message = "is not a valid date. Use format #{required_format}"
+        create_error(message)
+      end
+
+      def create_error(message)
+        raise JSON::Schema::CustomFormatError.new(message)
+      end
 
       def validate_data(documents)
         errors = []
