@@ -1,4 +1,4 @@
-require 'jekyll/data_validation/validator'
+require 'jekyll/data_validation'
 
 module Jekyll
   module DataValidation
