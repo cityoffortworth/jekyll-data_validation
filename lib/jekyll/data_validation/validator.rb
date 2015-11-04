@@ -40,24 +40,21 @@ module Jekyll
       private
 
       def short_date(value)
-        required_format = '"YYYY-MM-DD"'
-        verify_is_string(value, required_format)
-        verify_can_be_parsed(value, required_format)
-        verify_format(value, required_format, %r{^\d{4}-\d{2}-\d{2}$})
+        verify(value, '"YYYY-MM-DD"', %r{^\d{4}-\d{2}-\d{2}$})
       end
 
       def short_time(value)
-        required_format = '"HH:MM"'
-        verify_is_string(value, required_format)
-        verify_can_be_parsed(value, required_format)
-        verify_format(value, required_format, %r{^\d{2}:\d{2}$})
+        verify(value, '"HH:MM"', %r{^\d{2}:\d{2}$})
       end
 
       def short_date_time(value)
-        required_format = '"YYYY-MM-DD HH:MM"'
+        verify(value, '"YYYY-MM-DD HH:MM"', %r{^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$})
+      end
+
+      def verify(value, required_format, regex)
         verify_is_string(value, required_format)
         verify_can_be_parsed(value, required_format)
-        verify_format(value, required_format, %r{^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$})
+        verify_format(value, required_format, regex)
       end
 
       def verify_is_string(value, required_format)
