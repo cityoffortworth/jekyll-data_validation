@@ -13,63 +13,63 @@ describe Jekyll::DataValidation do
     @errors = validator.validate
   end
 
-  describe 'short date' do
-    it 'allows quoted short date' do
-      assert_no_errors 'short_date'
+  describe 'user date' do
+    it 'allows quoted user date' do
+      assert_no_errors 'user_date'
     end
 
-    it 'creates error for invalid short date' do
-      assert_has_errors 'short_date_bad_month'
+    it 'creates error for invalid user date' do
+      assert_has_errors 'user_date_bad_month'
     end
 
-    it 'creates error for short date without quotes' do
-      assert_has_errors 'short_date_no_quotes'
+    it 'creates error for user date without quotes' do
+      assert_has_errors 'user_date_no_quotes'
     end
 
-    it 'creates error if short date has wrong format' do
-      assert_has_errors 'short_date_with_wrong_short_time_format'
-      assert_has_errors 'short_date_with_wrong_short_date_time_format'
-    end
-  end
-
-  describe 'short time' do
-    it 'allows quoted short time' do
-      assert_no_errors 'short_time'
-    end
-
-    it 'creates error for invalid short time' do
-      assert_has_errors 'short_time_bad_hours'
-    end
-
-    it 'creates error for short time without quotes' do
-      assert_has_errors 'short_time_no_quotes'
-    end
-
-    it 'creates error if short time has wrong format' do
-      assert_has_errors 'short_time_with_wrong_short_date_format'
-      assert_has_errors 'short_time_with_wrong_short_date_time_format'
+    it 'creates error if user date has wrong format' do
+      assert_has_errors 'user_date_with_wrong_user_time_format'
+      assert_has_errors 'user_date_with_wrong_user_date_time_format'
     end
   end
 
-  describe 'short date time' do
-    it 'allows quoted short date time' do
-      assert_no_errors 'short_date_time'
+  describe 'user time' do
+    it 'allows quoted user time' do
+      assert_no_errors 'user_time'
     end
 
-    it 'creates error for invalid short date time' do
-      assert_has_errors 'short_date_time_bad_month'
-      assert_has_errors 'short_date_time_bad_hours'
+    it 'creates error for invalid user time' do
+      assert_has_errors 'user_time_bad_hours'
     end
 
-    it 'creates error for short date time without quotes' do
+    it 'creates error for user time without quotes' do
+      assert_has_errors 'user_time_no_quotes'
+    end
+
+    it 'creates error if user time has wrong format' do
+      assert_has_errors 'user_time_with_wrong_user_date_format'
+      assert_has_errors 'user_time_with_wrong_user_date_time_format'
+    end
+  end
+
+  describe 'user date time' do
+    it 'allows quoted user date time' do
+      assert_no_errors 'user_date_time'
+    end
+
+    it 'creates error for invalid user date time' do
+      assert_has_errors 'user_date_time_bad_month'
+      assert_has_errors 'user_date_time_bad_hours'
+    end
+
+    it 'creates error for user date time without quotes' do
       # Unfortunately there's no way to determine this, the YAML parser
-      # returns a String regardless if a short date time is quoted or not.
-      # assert_has_errors 'short_date_time_no_quotes'
+      # returns a String regardless if a user date time is quoted or not.
+      # assert_has_errors 'user_date_time_no_quotes'
     end
 
-    it 'creates error if short date time has wrong format' do
-      assert_has_errors 'short_date_time_with_wrong_short_date_format'
-      assert_has_errors 'short_date_time_with_wrong_short_time_format'
+    it 'creates error if user date time has wrong format' do
+      assert_has_errors 'user_date_time_with_wrong_user_date_format'
+      assert_has_errors 'user_date_time_with_wrong_user_time_format'
     end
   end
 

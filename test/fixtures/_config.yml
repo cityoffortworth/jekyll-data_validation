@@ -3,35 +3,35 @@ data_validation:
   id: test
   $schema: http://json-schema.org/draft-04/schema#
   properties:
-    short_date:
-      format: short-date
-    short_time:
-      format: short-time
-    short_date_time:
-      format: short-date-time
-    short_date_bad_month:
-      format: short-date
-    short_time_bad_hours:
-      format: short-time
-    short_date_time_bad_month:
-      format: short-date-time
-    short_date_time_bad_hours:
-      format: short-date-time
-    short_date_no_quotes:
-      format: short-date
-    short_time_no_quotes:
-      format: short-time
-    short_date_time_no_quotes:
-      format: short-date-time
-    short_date_with_wrong_short_time_format:
-      format: short-time
-    short_date_with_wrong_short_date_time_format:
-      format: short-date-time
-    short_time_with_wrong_short_date_format:
-      format: short-date
-    short_time_with_wrong_short_date_time_format:
-      format: short-date-time
-    short_date_time_with_wrong_short_date_format:
-      format: short-date
-    short_date_time_with_wrong_short_time_format:
-      format: short-time
+    user_date:
+      format: user-date
+    user_time:
+      format: user-time
+    user_date_time:
+      format: user-date-time
+    user_date_bad_month:
+      format: user-date
+    user_time_bad_hours:
+      format: user-time
+    user_date_time_bad_month:
+      format: user-date-time
+    user_date_time_bad_hours:
+      format: user-date-time
+    user_date_no_quotes:
+      format: user-date
+    user_time_no_quotes:
+      format: user-time
+    user_date_time_no_quotes:
+      format: user-date-time
+    user_date_with_wrong_user_time_format:
+      format: user-time
+    user_date_with_wrong_user_date_time_format:
+      format: user-date-time
+    user_time_with_wrong_user_date_format:
+      format: user-date
+    user_time_with_wrong_user_date_time_format:
+      format: user-date-time
+    user_date_time_with_wrong_user_date_format:
+      format: user-date
+    user_date_time_with_wrong_user_time_format:
+      format: user-time
