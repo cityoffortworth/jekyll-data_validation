@@ -48,7 +48,7 @@ describe Jekyll::DataValidation do
 
   it 'creates error for short date time without quotes' do
     # Unfortunately there's no way to determine this, the YAML parser
-    # returns a String regardless if a short date time is quoted.
+    # returns a String regardless if a short date time is quoted or not.
     # assert_has_errors 'short_date_time_no_quotes'
   end
 
