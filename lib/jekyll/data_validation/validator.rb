@@ -15,6 +15,16 @@ module Jekyll
         raise "Config file is missing data_validation section." if @schema.nil?
 
         JSON::Validator.register_format_validator(
+          'short-date',
+          method(:short_date)
+        )
+
+        JSON::Validator.register_format_validator(
+          'short-time',
+          method(:short_time)
+        )
+
+        JSON::Validator.register_format_validator(
           'short-date-time',
           method(:short_date_time)
         )
@@ -29,10 +39,25 @@ module Jekyll
 
       private
 
+      def short_date(value)
+        required_format = '"YYYY-MM-DD"'
+        verify_is_string(value, required_format)
+        verify_can_be_parsed(value, required_format)
+        verify_format(value, required_format, %r{^\d{4}-\d{2}-\d{2}$})
+      end
+
+      def short_time(value)
+        required_format = '"HH:MM"'
+        verify_is_string(value, required_format)
+        verify_can_be_parsed(value, required_format)
+        verify_format(value, required_format, %r{^\d{2}:\d{2}$})
+      end
+
       def short_date_time(value)
         required_format = '"YYYY-MM-DD HH:MM"'
         verify_is_string(value, required_format)
         verify_can_be_parsed(value, required_format)
+        verify_format(value, required_format, %r{^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$})
       end
 
       def verify_is_string(value, required_format)
@@ -43,8 +68,13 @@ module Jekyll
       def verify_can_be_parsed(value, required_format)
         parsed_value = Time.parse(value)
       rescue ArgumentError
-        message = "is not a valid date. Use format #{required_format}"
+        message = "cannot be parsed. Use format #{required_format}"
         create_error(message)
+      end
+
+      def verify_format(value, required_format, regex)
+        message = "has the wrong format. Use format #{required_format}"
+        create_error(message) if value.match(regex).nil?
       end
 
       def create_error(message)

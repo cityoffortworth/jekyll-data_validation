@@ -9,4 +9,10 @@ short_date_time_bad_hours: "2005-01-23 99:00"
 short_date_no_quotes: 2005-01-23
 short_time_no_quotes: 14:00
 short_date_time_no_quotes: 2005-01-23 14:00
+short_date_with_wrong_short_time_format: "2005-01-23"
+short_date_with_wrong_short_date_time_format: "2005-01-23"
+short_time_with_wrong_short_date_format: "14:00"
+short_time_with_wrong_short_date_time_format: "14:00"
+short_date_time_with_wrong_short_date_format: "2005-01-23 14:00"
+short_date_time_with_wrong_short_time_format: "2005-01-23 14:00"
 ---

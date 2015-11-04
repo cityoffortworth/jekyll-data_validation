@@ -4,22 +4,34 @@ data_validation:
   $schema: http://json-schema.org/draft-04/schema#
   properties:
     short_date:
-      format: short-date-time
+      format: short-date
     short_time:
-      format: short-date-time
+      format: short-time
     short_date_time:
       format: short-date-time
     short_date_bad_month:
-      format: short-date-time
+      format: short-date
     short_time_bad_hours:
-      format: short-date-time
+      format: short-time
     short_date_time_bad_month:
       format: short-date-time
     short_date_time_bad_hours:
       format: short-date-time
     short_date_no_quotes:
-      format: short-date-time
+      format: short-date
     short_time_no_quotes:
-      format: short-date-time
+      format: short-time
     short_date_time_no_quotes:
       format: short-date-time
+    short_date_with_wrong_short_time_format:
+      format: short-time
+    short_date_with_wrong_short_date_time_format:
+      format: short-date-time
+    short_time_with_wrong_short_date_format:
+      format: short-date
+    short_time_with_wrong_short_date_time_format:
+      format: short-date-time
+    short_date_time_with_wrong_short_date_format:
+      format: short-date
+    short_date_time_with_wrong_short_time_format:
+      format: short-time

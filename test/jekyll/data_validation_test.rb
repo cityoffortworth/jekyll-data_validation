@@ -52,6 +52,21 @@ describe Jekyll::DataValidation do
     # assert_has_errors 'short_date_time_no_quotes'
   end
 
+  it 'creates error if short date has wrong format' do
+    assert_has_errors 'short_date_with_wrong_short_time_format'
+    assert_has_errors 'short_date_with_wrong_short_date_time_format'
+  end
+
+  it 'creates error if short time has wrong format' do
+    assert_has_errors 'short_time_with_wrong_short_date_format'
+    assert_has_errors 'short_time_with_wrong_short_date_time_format'
+  end
+
+  it 'creates error if short date time has wrong format' do
+    assert_has_errors 'short_date_time_with_wrong_short_date_format'
+    assert_has_errors 'short_date_time_with_wrong_short_time_format'
+  end
+
   private
 
   def assert_no_errors(fieldname)
