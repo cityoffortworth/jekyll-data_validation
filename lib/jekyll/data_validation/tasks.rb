@@ -32,7 +32,8 @@ module Jekyll
             end
             puts
           end
-          abort "Validation failed. See the list above for files that need to be corrected."
+          message = "Validation failed. See the list above for files that need to be corrected."
+          raise Jekyll::DataValidation::ValidationError.new(message)
         end
       end
 

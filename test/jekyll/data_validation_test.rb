@@ -1,5 +1,6 @@
 require 'jekyll'
 require 'jekyll/data_validation'
+require 'jekyll/data_validation/tasks'
 require 'minitest/autorun'
 
 describe Jekyll::DataValidation do
@@ -73,6 +74,17 @@ describe Jekyll::DataValidation do
     end
   end
 
+  describe 'validate Rake task' do
+    it 'validates the fixtures without blowing up' do
+      swallow_stdout do
+        begin
+          Rake.application.invoke_task('validate[test/fixtures/_config.yml]')
+        rescue Jekyll::DataValidation::ValidationError
+        end
+      end
+    end
+  end
+
   private
 
   def assert_no_errors(fieldname)
@@ -91,5 +103,14 @@ describe Jekyll::DataValidation do
       end
     end
     errors_count
+  end
+
+  def swallow_stdout
+    old_stdout = $stdout
+    $stdout = StringIO.new('','w')
+    yield
+    $stdout.string
+  ensure
+    $stdout = old_stdout
   end
 end
