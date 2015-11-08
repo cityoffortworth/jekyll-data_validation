@@ -1,4 +1,13 @@
 source: test/fixtures
+collections:
+  items:
+    output: true
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      hello: "world"
 data_validation:
   id: test
   $schema: http://json-schema.org/draft-04/schema#

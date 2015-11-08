@@ -19,6 +19,9 @@ module Jekyll
         errors = []
         errors.concat(validate_data(@site.posts))
         errors.concat(validate_data(@site.pages))
+        @site.collections.each do |name, collection|
+          errors.concat(validate_data(collection.docs))
+        end
         errors
       end
 
