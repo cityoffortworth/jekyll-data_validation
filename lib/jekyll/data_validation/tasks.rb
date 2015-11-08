@@ -38,7 +38,7 @@ module Jekyll
       end
 
       def trim_message(message)
-        message.sub(/in schema .*/, '')
+        message.sub(/'#\//, "'").sub(/in schema .*/, '')
       end
 
     end
