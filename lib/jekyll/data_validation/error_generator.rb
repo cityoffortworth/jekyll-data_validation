@@ -6,9 +6,9 @@ module Jekyll
     module ErrorGenerator
 
       def verify(value, required_format, regex)
-        verify_is_string(value, required_format)
-        verify_can_be_parsed(value, required_format)
-        verify_format(value, required_format, regex)
+        # verify_is_string(value, required_format)
+        verify_can_be_parsed(value.to_s, required_format)
+        # verify_format(value, required_format, regex)
       end
 
       def verify_is_string(value, required_format)
