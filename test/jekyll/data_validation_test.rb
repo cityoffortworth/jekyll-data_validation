@@ -1,6 +1,5 @@
 require 'jekyll'
 require 'jekyll/data_validation'
-require 'jekyll/data_validation/tasks'
 require 'minitest/autorun'
 
 describe Jekyll::DataValidation do
@@ -71,17 +70,6 @@ describe Jekyll::DataValidation do
     it 'creates error if user date time has wrong format' do
       assert_has_errors 'user_date_time_with_wrong_user_date_format'
       assert_has_errors 'user_date_time_with_wrong_user_time_format'
-    end
-  end
-
-  describe 'validate Rake task' do
-    it 'validates the fixtures without blowing up' do
-      swallow_stdout do
-        begin
-          Rake.application.invoke_task('validate[test/fixtures/_config.yml]')
-        rescue Jekyll::DataValidation::ValidationError
-        end
-      end
     end
   end
 

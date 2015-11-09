@@ -5,9 +5,9 @@ module Jekyll
   module DataValidation
     class Validator
 
-      def initialize(config)
+      def initialize(options)
         Jekyll::PluginManager.require_from_bundler
-        @site = Jekyll::Site.new(config)
+        @site = Jekyll::Site.new(options)
         @site.reset
         @site.read
         @site.generate
