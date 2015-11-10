@@ -86,8 +86,8 @@ describe Jekyll::DataValidation do
   def count_errors(fieldname)
     errors_count = 0
     @errors.each do |error|
-      errors_count += 1 if error[:messages].any? do |message|
-        message.include?("'#/#{fieldname}'")
+      error[:problems].each do |problem|
+        errors_count += 1 if problem[:message].include?("'#/#{fieldname}'")
       end
     end
     errors_count
