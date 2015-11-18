@@ -16,15 +16,16 @@ module Jekyll
         errors.each do |error|
           error[:problems].each do |problem|
             content = File.read(error[:file])
-            data = {}
-            if content =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+            if content =~ /\A(---\s*\n.*?\n?)^(---)/m
               content = $POSTMATCH
-              data = SafeYAML.load($1)
+              data = $1
             end
             value = find_value(problem)
             field = find_field(problem)
-            data[field] = Time.parse(value.to_s).strftime('%Y-%m-%d')
-            new_content = "#{data.to_yaml}---\n#{content}"
+            reformatted_date = Time.parse(value.to_s).strftime('%Y-%m-%d')
+            data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted_date}\"")
+
+            new_content = "#{data}---#{content}"
             File.write(error[:file], new_content)
           end
         end
