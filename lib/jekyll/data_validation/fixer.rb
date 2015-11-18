@@ -35,11 +35,11 @@ module Jekyll
       private
 
       def find_value(problem)
-        problem[:message].match(/with value (\S*)/).captures[0]
+        problem[:message].match(/with value ([0-9T:\-\s]*)/).captures[0]
       end
 
       def find_field(problem)
-        problem[:fragment].match(/#{}\/(\S*)/).captures[0]
+        problem[:fragment].match(/#\/(\S*)/).captures[0]
       end
 
       def reformat(value, problem)
