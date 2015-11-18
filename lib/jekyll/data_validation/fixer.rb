@@ -20,12 +20,12 @@ module Jekyll
               content = $POSTMATCH
               data = $1
             end
+
             value = find_value(problem)
             field = find_field(problem)
-            reformat_string = determine_reformatting(problem)
-            reformatted = reformat(value, reformat_string)
-            data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
+            reformatted = reformat(value, problem)
 
+            data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
             new_content = "#{data}---#{content}"
             File.write(error[:file], new_content)
           end
@@ -42,7 +42,8 @@ module Jekyll
         problem[:fragment].match(/#{}\/(\S*)/).captures[0]
       end
 
-      def reformat(value, reformat_string)
+      def reformat(value, problem)
+        reformat_string = get_reformat_string(problem)
         time = Time.parse(value.to_s)
         if time.strftime("%H:%M") == "00:00"
           reformat_string = "%Y-%m-%d"
@@ -50,7 +51,7 @@ module Jekyll
         reformatted = time.strftime(reformat_string)
       end
 
-      def determine_reformatting(problem)
+      def get_reformat_string(problem)
         case problem[:message].match(/Use format "(.*)"\./).captures[0]
         when "YYYY-MM-DD HH:MM"
           "%Y-%m-%d %H:%M"
