@@ -3,7 +3,7 @@ require 'jekyll'
 
 module Jekyll
   module DataValidation
-    class Fixer
+    class DateFixer
 
       def initialize(options)
         Jekyll::PluginManager.require_from_bundler
@@ -12,10 +12,10 @@ module Jekyll
         raise "Config file is missing data_validation section." if @schema.nil?
       end
 
-      def fix(errors)
+      def fix_date_errors(errors)
         errors.each do |error|
           error[:problems].each do |problem|
-            content = File.read(error[:file])
+            content = File.read(File.join(@site.source, error[:file]))
             if content =~ /\A(---\s*\n.*?\n?)^(---)/m
               content = $POSTMATCH
               data = $1
@@ -27,7 +27,7 @@ module Jekyll
 
             data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
             new_content = "#{data}---#{content}"
-            File.write(error[:file], new_content)
+            File.write(File.join(@site.source, error[:file]), new_content)
           end
         end
       end

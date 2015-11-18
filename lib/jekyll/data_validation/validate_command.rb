@@ -22,8 +22,8 @@ module Jekyll
           validator = Jekyll::DataValidation::Validator.new(options)
           errors = validator.validate
           if !errors.empty? && options['autofix']
-            fixer = Jekyll::DataValidation::Fixer.new(options)
-            fixer.fix(errors)
+            fixer = Jekyll::DataValidation::DateFixer.new(options)
+            fixer.fix_date_errors(errors)
             errors = validator.validate
           end
           abort_if_errors(errors)

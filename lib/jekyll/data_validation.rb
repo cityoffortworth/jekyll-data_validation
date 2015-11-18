@@ -1,5 +1,5 @@
 require 'jekyll/data_validation/validator'
-require 'jekyll/data_validation/fixer'
+require 'jekyll/data_validation/date_fixer'
 require 'jekyll/data_validation/validation_error'
 require 'jekyll/data_validation/validate_command'
 require 'jekyll/data_validation/error_generator'
