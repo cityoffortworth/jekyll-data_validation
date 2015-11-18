@@ -2,7 +2,7 @@ require 'jekyll'
 require 'jekyll/data_validation'
 require 'minitest/autorun'
 
-describe Jekyll::DataValidation do
+describe Jekyll::DataValidation::Formats do
 
   def setup
     config = Jekyll.configuration({
@@ -61,7 +61,7 @@ describe Jekyll::DataValidation do
       assert_has_errors 'user_date_time_bad_hours'
     end
 
-    it 'creates error for user-date-iime without quotes' do
+    it 'creates error for user-date-time without quotes' do
       # Unfortunately there's no way to determine this, the YAML parser
       # returns a String regardless if a user-date-time is quoted or not.
       # assert_has_errors 'user_date_time_no_quotes'
