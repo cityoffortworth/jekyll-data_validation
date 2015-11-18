@@ -49,6 +49,8 @@ module Jekyll
         #   reformat_string = "%Y-%m-%d"
         # end
         reformatted = time.strftime(reformat_string)
+      rescue
+        reformatted = value
       end
 
       def get_reformat_string(problem)
