@@ -20,8 +20,10 @@ module Jekyll
             value = find_value(problem)
             field = find_field(problem)
 
-            reformatted = reformat(value, problem)
-            data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
+            if can_be_corrected_by_reformatting?(problem)
+              reformatted = reformat(value, problem)
+              data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
+            end
 
             new_content = "#{data}---#{content}"
             File.write(path, new_content)
@@ -30,6 +32,10 @@ module Jekyll
       end
 
       private
+
+      def can_be_corrected_by_reformatting?(problem)
+        problem[:message] =~ /(is missing quotes|has the wrong format)/
+      end
 
       def read_file_with_error(path)
         content = File.read(path)
