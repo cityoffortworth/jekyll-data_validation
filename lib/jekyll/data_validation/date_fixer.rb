@@ -16,17 +16,13 @@ module Jekyll
         errors.each do |error|
           error[:problems].each do |problem|
             path = file_path(error)
-            content = File.read(path)
-            if content =~ /\A(---\s*\n.*?\n?)^(---)/m
-              content = $POSTMATCH
-              data = $1
-            end
-
+            data, content = read_file_with_error(path)
             value = find_value(problem)
             field = find_field(problem)
-            reformatted = reformat(value, problem)
 
+            reformatted = reformat(value, problem)
             data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
+
             new_content = "#{data}---#{content}"
             File.write(path, new_content)
           end
@@ -34,6 +30,17 @@ module Jekyll
       end
 
       private
+
+      def read_file_with_error(path)
+        content = File.read(path)
+        if content =~ /\A(---\s*\n.*?\n?)^(---)/m
+          content = $POSTMATCH
+          data = $1
+        else
+          raise "#{path} is not a YAML file. Expecting errors to be in YAML."
+        end
+        [data, content]
+      end
 
       def file_path(error)
         if error[:file].start_with?(@site.source)
