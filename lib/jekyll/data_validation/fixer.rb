@@ -22,8 +22,9 @@ module Jekyll
             end
             value = find_value(problem)
             field = find_field(problem)
-            reformatted_date = Time.parse(value.to_s).strftime('%Y-%m-%d')
-            data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted_date}\"")
+            reformat_string = determine_reformatting(problem)
+            reformatted = reformat(value, reformat_string)
+            data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
 
             new_content = "#{data}---#{content}"
             File.write(error[:file], new_content)
@@ -39,6 +40,27 @@ module Jekyll
 
       def find_field(problem)
         problem[:fragment].match(/#{}\/(\S*)/).captures[0]
+      end
+
+      def reformat(value, reformat_string)
+        time = Time.parse(value.to_s)
+        if time.strftime("%H:%M") == "00:00"
+          reformat_string = "%Y-%m-%d"
+        end
+        reformatted = time.strftime(reformat_string)
+      end
+
+      def determine_reformatting(problem)
+        case problem[:message].match(/Use format "(.*)"\./).captures[0]
+        when "YYYY-MM-DD HH:MM"
+          "%Y-%m-%d %H:%M"
+        when "YYYY-MM-DD"
+          "%Y-%m-%d"
+        when "HH:MM"
+          "%H:%M"
+        else
+          raise "Did not find a formatting in error message."
+        end
       end
 
     end
