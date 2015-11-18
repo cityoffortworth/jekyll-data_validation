@@ -15,7 +15,8 @@ module Jekyll
       def fix_date_errors(errors)
         errors.each do |error|
           error[:problems].each do |problem|
-            content = File.read(File.join(@site.source, error[:file]))
+            path = file_path(error)
+            content = File.read(path)
             if content =~ /\A(---\s*\n.*?\n?)^(---)/m
               content = $POSTMATCH
               data = $1
@@ -27,12 +28,20 @@ module Jekyll
 
             data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
             new_content = "#{data}---#{content}"
-            File.write(File.join(@site.source, error[:file]), new_content)
+            File.write(path, new_content)
           end
         end
       end
 
       private
+
+      def file_path(error)
+        if error[:file].start_with?(@site.source)
+          error[:file]
+        else
+          File.join(@site.source, error[:file])
+        end
+      end
 
       def find_value(problem)
         problem[:message].match(/with value ([0-9T:\-\s]*)/).captures[0].strip
