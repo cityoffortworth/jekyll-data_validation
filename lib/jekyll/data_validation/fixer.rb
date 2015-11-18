@@ -45,9 +45,9 @@ module Jekyll
       def reformat(value, problem)
         reformat_string = get_reformat_string(problem)
         time = Time.parse(value.to_s)
-        if time.strftime("%H:%M") == "00:00"
-          reformat_string = "%Y-%m-%d"
-        end
+        # if time.strftime("%H:%M") == "00:00"
+        #   reformat_string = "%Y-%m-%d"
+        # end
         reformatted = time.strftime(reformat_string)
       end
 
