@@ -15,18 +15,17 @@ module Jekyll
       def fix_date_errors(errors)
         errors.each do |error|
           error[:problems].each do |problem|
-            path = file_path(error)
-            data, content = read_file_with_error(path)
-            value = find_value(problem)
-            field = find_field(problem)
-
             if can_be_corrected_by_reformatting?(problem)
+              path = file_path(error)
+              data, content = read_file_with_error(path)
+              value = find_value(problem)
+              field = find_field(problem)
+
               reformatted = reformat(value, problem)
               data.gsub!(/^#{field}:.*$/, "#{field}: \"#{reformatted}\"")
+              new_content = "#{data}---#{content}"
+              File.write(path, new_content)
             end
-
-            new_content = "#{data}---#{content}"
-            File.write(path, new_content)
           end
         end
       end
