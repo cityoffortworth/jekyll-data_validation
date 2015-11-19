@@ -2,7 +2,7 @@ require 'jekyll'
 require 'jekyll/data_validation'
 require 'minitest/autorun'
 
-describe Jekyll::DataValidation do
+describe Jekyll::DataValidation::Formats do
 
   def setup
     config = Jekyll.configuration({
@@ -13,61 +13,61 @@ describe Jekyll::DataValidation do
     @errors = validator.validate
   end
 
-  describe 'user date' do
-    it 'allows quoted user date' do
+  describe 'user-date format' do
+    it 'allows quoted user-date' do
       assert_no_errors 'user_date'
     end
 
-    it 'creates error for invalid user date' do
+    it 'creates error for invalid user-date' do
       assert_has_errors 'user_date_bad_month'
     end
 
-    it 'creates error for user date without quotes' do
+    it 'creates error for user-date without quotes' do
       assert_has_errors 'user_date_no_quotes'
     end
 
-    it 'creates error if user date has wrong format' do
+    it 'creates error if user-date has wrong format' do
       assert_has_errors 'user_date_with_wrong_user_time_format'
       assert_has_errors 'user_date_with_wrong_user_date_time_format'
     end
   end
 
-  describe 'user time' do
-    it 'allows quoted user time' do
+  describe 'user-time format' do
+    it 'allows quoted user-time' do
       assert_no_errors 'user_time'
     end
 
-    it 'creates error for invalid user time' do
+    it 'creates error for invalid user-time' do
       assert_has_errors 'user_time_bad_hours'
     end
 
-    it 'creates error for user time without quotes' do
+    it 'creates error for user-time without quotes' do
       assert_has_errors 'user_time_no_quotes'
     end
 
-    it 'creates error if user time has wrong format' do
+    it 'creates error if user-time has wrong format' do
       assert_has_errors 'user_time_with_wrong_user_date_format'
       assert_has_errors 'user_time_with_wrong_user_date_time_format'
     end
   end
 
-  describe 'user date time' do
-    it 'allows quoted user date time' do
+  describe 'user-date-time format' do
+    it 'allows quoted user-date-time' do
       assert_no_errors 'user_date_time'
     end
 
-    it 'creates error for invalid user date time' do
+    it 'creates error for invalid user-date-time' do
       assert_has_errors 'user_date_time_bad_month'
       assert_has_errors 'user_date_time_bad_hours'
     end
 
-    it 'creates error for user date time without quotes' do
+    it 'creates error for user-date-time without quotes' do
       # Unfortunately there's no way to determine this, the YAML parser
-      # returns a String regardless if a user date time is quoted or not.
+      # returns a String regardless if a user-date-time is quoted or not.
       # assert_has_errors 'user_date_time_no_quotes'
     end
 
-    it 'creates error if user date time has wrong format' do
+    it 'creates error if user-date-time has wrong format' do
       assert_has_errors 'user_date_time_with_wrong_user_date_format'
       assert_has_errors 'user_date_time_with_wrong_user_time_format'
     end
@@ -86,8 +86,8 @@ describe Jekyll::DataValidation do
   def count_errors(fieldname)
     errors_count = 0
     @errors.each do |error|
-      errors_count += 1 if error[:messages].any? do |message|
-        message.include?("'#/#{fieldname}'")
+      error[:problems].each do |problem|
+        errors_count += 1 if problem[:message].include?("'#/#{fieldname}'")
       end
     end
     errors_count

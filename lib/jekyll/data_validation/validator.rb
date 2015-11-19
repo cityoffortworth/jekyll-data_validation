@@ -8,14 +8,14 @@ module Jekyll
       def initialize(options)
         Jekyll::PluginManager.require_from_bundler
         @site = Jekyll::Site.new(options)
-        @site.reset
-        @site.read
-        @site.generate
         @schema = @site.config['data_validation']
         raise "Config file is missing data_validation section." if @schema.nil?
       end
 
       def validate
+        @site.reset
+        @site.read
+        @site.generate
         errors = []
         errors.concat(validate_data(@site.posts))
         errors.concat(validate_data(@site.pages))
@@ -30,11 +30,15 @@ module Jekyll
       def validate_data(documents)
         errors = []
         documents.each do |document|
-          messages = JSON::Validator.fully_validate(@schema, document.data)
-          unless messages.empty?
+          doc_errors = JSON::Validator.fully_validate(
+            @schema,
+            document.data,
+            :errors_as_objects => true
+          )
+          unless doc_errors.empty?
             errors << {
               :file => document.path,
-              :messages => messages
+              :problems => doc_errors
             }
           end
         end

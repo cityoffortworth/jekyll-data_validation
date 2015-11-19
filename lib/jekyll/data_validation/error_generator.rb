@@ -6,9 +6,15 @@ module Jekyll
     module ErrorGenerator
 
       def verify(value, required_format, regex)
+        check_for_type_time(value, required_format)
         verify_is_string(value, required_format)
         verify_can_be_parsed(value, required_format)
         verify_format(value, required_format, regex)
+      end
+
+      def check_for_type_time(value, required_format)
+        message = "with value #{value} could be incorrect (off by timezone adjustment). Use format #{required_format}."
+        create_error(message) if value.instance_of? Time
       end
 
       def verify_is_string(value, required_format)
